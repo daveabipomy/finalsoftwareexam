@@ -1,0 +1,63 @@
+<!DOCTYPE html >
+<html layout:decorate="~{common/masterlayout}"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <style type="text/css">
+
+        .asd {
+            background:rgba(0,0,0,0);
+            border:none;
+        }
+
+    </style>
+</head>
+<body>
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/productlist.css}" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <h2>Accounts List</h2> <br/>
+    <a href="/account/insert">Create an Account</a>
+    <a href="/midwest/home" id="linkBackHome" >Back to home</a><br/><br/>
+    <table class="table table-striped">
+        <thead>
+        <th scope="col">#</th>
+        <th>account Number</th>
+        <th>Customer</th>
+        <th>Type of Account</th>
+        <th>Balance</th>
+
+        </thead>
+        <tbody>
+        <tr th:each="account,iterStat : ${accounts}">
+            <th scope="row" th:text="${iterStat.count}"></th>
+            <td th:text="${account.accountNumber}"></td>
+            <td th:text="${account.customer.customerNumber+' -'+account.customer.firstName+' '+account.customer.lastName}"></td>
+            <td th:text="${account.accountType.accountTypeName}"></td>
+            <td th:text="${account.balance}"></td>
+
+            <td>
+                <a th:href="@{'/product/' + ${account.accountId}}">Edit</a>&nbsp;
+                <a th:href="@{'/product/delete/' + ${account.accountId}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+<!--    <form class="form-horizontal" action="/account/insert" method="POST" th:object="${account}">-->
+
+<!--        <input type="hidden" name="id" th:value="${account.accountId}" />-->
+
+
+    <div class="form-group">
+        <span style="font-size: 1.5em">Net Liquidity:</span> <span th:text="${liquidity}"></span>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+</th:block>
+
+</body>
+</html>

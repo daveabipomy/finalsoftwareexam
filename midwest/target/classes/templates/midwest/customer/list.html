@@ -1,0 +1,47 @@
+<!DOCTYPE html >
+<html layout:decorate="~{common/masterlayout}"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<body>
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/productlist.css}" />
+</th:block>
+
+<th:block layout:fragment="content">
+    <h2>Customers List</h2> <br/>
+    <a href="/Customer/insert">Create a Customer</a>
+    <a href="/midwest/home" id="linkBackHome" >Back to home</a><br/><br/>
+    <table class="table table-striped">
+        <thead>
+        <th scope="col">#</th>
+        <th>Customer Number</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th>Date Of Birth</th>
+        <th>Email Address</th>
+        <th>Phone number</th>
+        </thead>
+        <tbody>
+        <tr th:each="customer,iterStat : ${customers}">
+            <th scope="row" th:text="${iterStat.count}"></th>
+            <td th:text="${customer.customerNumber}"></td>
+            <td th:text="${customer.firstName}"></td>
+            <td th:text="${customer.middleName}"></td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:text="${customer.dateOfBirth}"></td>
+            <td th:text="${customer.emailAddress}"></td>
+            <td th:text="${customer.contactPhoneNumber}"></td>
+            <td>
+                <a th:href="@{'/product/' + ${customer.customerId}}">Edit</a>&nbsp;
+                <a th:href="@{'/product/delete/' + ${customer.customerId}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</th:block>
+
+<th:block layout:fragment="footer">
+</th:block>
+
+</body>
+</html>
